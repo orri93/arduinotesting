@@ -50,6 +50,8 @@ void setup() {
   fds::display::u8g2.begin();
 #endif
 
+  SPI.begin();
+  
   max31865.initialize(MAX_RTD_TYPE, MAX_WIRES);
 
 #ifdef SERIAL_BAUD
