@@ -12,19 +12,19 @@
 #include <arduinodisplay.h>
 #endif
 
-#define INTERVAL_MAX_31865     500
+#define INTERVAL_MAX_31865        500
 
-#define DELAY_SENSOR_SETUP_END 500
+#define DELAY_SENSOR_SETUP_END    500
 
-#define SERIAL_BAUD          19200
+#define SERIAL_BAUD            115200
 
-#define PIN_SPI_MAX_31865_CS    10
+#define PIN_SPI_MAX_31865_CS       10
 
 /* For PT100 set type to 1 and for PT1000 set type to 2 */
-#define MAX_RTD_TYPE             1
+#define MAX_RTD_TYPE  RTD_TYPE_PT1000
 
 // set to 2WIRE or 4WIRE as necessary
-#define MAX_WIRES       RTD_3_WIRE
+#define MAX_WIRES          RTD_3_WIRE
 
 Tick timermax31865(INTERVAL_MAX_31865);
 
@@ -85,7 +85,10 @@ void loop() {
       ::fds::format::number(value31865, 0);
 #endif
     } else {
-      Serial.println(error31865);
+      Serial.print(error31865);
+      Serial.print(" (");
+      Serial.print(value31865);
+      Serial.println(")");
 #ifndef NO_DISPLAY
       ::fds::format::error(error31865, length31865);
 #endif
