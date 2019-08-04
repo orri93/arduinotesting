@@ -16,6 +16,7 @@
 #include <gosmax6675.h>
 #include <arduinosensor.h>
 #include <arduinotick.h>
+#include <gos/atl/median.h>
 
 #ifndef NO_DISPLAY
 #include <arduinoformat.h>
@@ -37,6 +38,8 @@
 #endif
 
 Tick timermax6675(INTERVAL_MAX_6675);
+
+::gos::atl::Median<double> median;
 
 ::gos::Max6675 max6675(PIN_MAX6675_CS);
 
@@ -82,7 +85,9 @@ void loop() {
   if(timermax6675.is(tick)) {
     error6675 = nullptr;
     if(max6675.read(value6675)) {
-      if(::gos::sensor::range::check(value6675) != GOS_SENSOR_STATUS_OK) {
+      if(::gos::sensor::range::check(value6675) == GOS_SENSOR_STATUS_OK) {
+        median.add(value6675);
+        } else {
         error6675 = ::gos::sensor::error(length6675);
       }
     } else {
