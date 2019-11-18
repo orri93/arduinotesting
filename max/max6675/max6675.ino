@@ -16,7 +16,7 @@
 #include <gosmax6675.h>
 #include <arduinosensor.h>
 #include <arduinotick.h>
-#include <gos/atl/median.h>
+#include <gatlmedian.h>
 
 #ifndef NO_DISPLAY
 #include <arduinoformat.h>
